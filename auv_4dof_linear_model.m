@@ -1,4 +1,6 @@
 function [A, B, C, D, x_trim, U_trim] = auv_4dof_linear_model()
+% Load the numerically linearised 4DOF REMUS-based AUV model.
+% Run Calculate_Trim_and_Linearise_4DOF.m first to generate the MAT file.
 
 modelFile = 'AUV_4DOF_Linearised_Model.mat';
 

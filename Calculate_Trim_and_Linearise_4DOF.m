@@ -1,6 +1,7 @@
 % Calculate_Trim_and_Linearise_4DOF.m
-% Numerically compute the trim point and linearise the 4DOF REMUS-based AUV
-% model directly from the nonlinear dynamics.
+% Active workflow step 2 of 7.
+% Numerically computes the trim point and finite-difference linearisation
+% directly from the nonlinear 4DOF REMUS-based AUV model.
 
 clear; clc; close all;
 

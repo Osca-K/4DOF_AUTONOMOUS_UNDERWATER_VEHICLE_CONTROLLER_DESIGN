@@ -1,9 +1,7 @@
 % Check_Trim_4DOF.m
-% Verify that trim values are true equilibrium points
-% 
-% This script simulates the nonlinear 4DOF REMUS-based AUV model
-% with NO perturbation to the trim input. If the trim values are correct,
-% the velocity states should remain constant (near zero perturbations).
+% Active workflow step 5 of 7.
+% Verifies the numerical trim by simulating the nonlinear 4DOF REMUS-based
+% AUV model with zero input perturbation and plotting velocity perturbations.
 
 clear; clc; close all;
 
@@ -36,26 +34,26 @@ plot(t, x_nonlin_pert(:,5), 'LineWidth', 1.5, 'Color', [0 0.447 0.741]);
 grid on;
 ylabel('\Delta u (m/s)', 'FontSize', 11);
 title('Trim Check: Velocity Perturbations (Should Stay Near Zero)', 'FontSize', 12, 'FontWeight', 'bold');
-legend('Δu', 'FontSize', 10);
+legend('\Delta u', 'FontSize', 10);
 
 subplot(4,1,2)
 plot(t, x_nonlin_pert(:,6), 'LineWidth', 1.5, 'Color', [0.85 0.325 0.098]);
 grid on;
 ylabel('\Delta v (m/s)', 'FontSize', 11);
-legend('Δv', 'FontSize', 10);
+legend('\Delta v', 'FontSize', 10);
 
 subplot(4,1,3)
 plot(t, x_nonlin_pert(:,7), 'LineWidth', 1.5, 'Color', [0.929 0.694 0.125]);
 grid on;
 ylabel('\Delta w (m/s)', 'FontSize', 11);
-legend('Δw', 'FontSize', 10);
+legend('\Delta w', 'FontSize', 10);
 
 subplot(4,1,4)
 plot(t, x_nonlin_pert(:,8), 'LineWidth', 1.5, 'Color', [0.494 0.184 0.556]);
 grid on;
 ylabel('\Delta r (rad/s)', 'FontSize', 11);
 xlabel('Time (s)', 'FontSize', 11);
-legend('Δr', 'FontSize', 10);
+legend('\Delta r', 'FontSize', 10);
 
 %% Print statistics
 fprintf('\n========== TRIM CHECK RESULTS ==========\n');
@@ -69,5 +67,8 @@ fprintf('\nIf all values are < 0.01, trim is likely correct.\n');
 fprintf('========================================\n\n');
 
 %% Save figure
-saveas(gcf, 'Nonlinear_Trim_Check.png');
+if ~exist('Results','dir')
+	mkdir('Results');
+end
+saveas(gcf, fullfile('Results','Nonlinear_Trim_Check.png'));
 fprintf('Figure saved as: Nonlinear_Trim_Check.png\n');

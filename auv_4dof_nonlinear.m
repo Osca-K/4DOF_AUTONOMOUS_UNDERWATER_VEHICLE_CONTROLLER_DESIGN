@@ -1,19 +1,17 @@
 function dx = auv_4dof_nonlinear(t, x, U)
 % ============================================================
+% Active workflow step 1 of 7.
 % Reduced 4DOF REMUS-based AUV nonlinear model
 % States: x = [X; Y; Z; psi; u; v; w; r]
 % Inputs: U = [XT; delta_r; delta_e]
-%
-% Reduced from the lecturer-provided 6DOF REMUS model by assuming:
 % phi = 0, theta = 0, p = 0, q = 0
 % Retained DOFs: surge, sway, heave, yaw
 % ============================================================
 
 %% States
-Xpos = x(1);
-Ypos = x(2);
-Zpos = x(3);
 psi  = x(4);
+
+time = t; %#ok<NASGU>
 
 u = x(5);
 v = x(6);
@@ -23,7 +21,7 @@ r = x(8);
 %% Inputs
 XT      = U(1);   % Propeller thrust
 delta_r = U(2);   % Rudder deflection
-delta_e = U(3);   % Elevator/stern deflection
+delta_e = U(3);   % Elevator 4 stern deflection
 
 %% Vehicle parameters
 rho = 1.03e3;       % kg/m^3
@@ -35,7 +33,7 @@ W_force = 2.99e2;   % N
 m  = W_force/9.8;   % kg
 Iz = 3.45;          % kg.m^2
 
-%% Added mass / inertia coefficients
+%% Added mass and inertia coefficients
 X_du = -0.93;
 Y_dv = -35.5;
 Z_dw = -35.5;
@@ -66,7 +64,7 @@ Z_uude = -9.64;
 N_uudr = -6.15;
 
 %% Surge drag coefficient
-% Avoid division issue if u becomes very close to zero
+
 u_abs = max(abs(u), 1e-6);
 
 Cd = 0.193*(u_abs)^(-0.14);

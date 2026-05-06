@@ -1,13 +1,12 @@
 % Updated_Transfer_Functions.m
-% Extract and analyze transfer functions from the 4DOF linear model
-% 
-% This script creates transfer functions from the state-space model
-% and analyzes the open-loop dynamics.
+% Active workflow step 7 of 7.
+% Loads the numerically linearised 4DOF REMUS-based AUV model and reports
+% the most useful open-loop transfer functions and stability information.
 
 clear; clc; close all;
 
 %% Load 4DOF linear model
-[A, B, C, D] = auv_4dof_linear_model();
+[A, B, C, D, x_trim, U_trim] = auv_4dof_linear_model();
 
 fprintf('\n======== 4DOF REMUS-BASED AUV LINEAR MODEL ========\n');
 fprintf('Transfer Function Analysis\n');
@@ -20,10 +19,10 @@ sys = ss(A, B, C, D);
 TF = tf(sys);
 
 % Extract individual transfer functions of interest
-G_X_XT = TF(1,1);          % X position / thrust
-G_Y_dr = TF(2,2);          % Y position / rudder
-G_Z_de = TF(3,3);          % Z position / elevator
-G_psi_dr = TF(4,2);        % yaw heading / rudder
+G_X_XT = TF(1,1);       % X position / thrust
+G_Y_dr = TF(2,2);       % Y position / rudder
+G_Z_de = TF(3,3);       % Z position / elevator
+G_psi_dr = TF(4,2);     % yaw heading / rudder
 
 %% Display transfer functions
 fprintf('Transfer Function: X(s) / XT(s)  (Surge Position / Thrust)\n');
@@ -91,8 +90,12 @@ title('Step Response: \psi / \delta_r (Yaw Heading / Rudder)', 'FontSize', 11, '
 
 sgtitle('Open-Loop Transfer Function Step Responses', 'FontSize', 13, 'FontWeight', 'bold');
 
+if ~exist('Results','dir')
+    mkdir('Results');
+end
+
 % Save figure
-saveas(gcf, 'Updated_OpenLoop_TF_Responses.png');
+saveas(gcf, fullfile('Results','Updated_OpenLoop_TF_Responses.png'));
 fprintf('Saved: Updated_OpenLoop_TF_Responses.png\n');
 
 %% Plot pole-zero map
@@ -104,7 +107,7 @@ xlabel('Real Axis', 'FontSize', 11);
 ylabel('Imaginary Axis', 'FontSize', 11);
 
 % Save figure
-saveas(gcf, 'Updated_Pole_Zero_Map.png');
+saveas(gcf, fullfile('Results','Updated_Pole_Zero_Map.png'));
 fprintf('Saved: Updated_Pole_Zero_Map.png\n');
 
 %% Display poles and zeros
