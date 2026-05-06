@@ -11,7 +11,7 @@ t = linspace(0, 80, 2000);
 %% Define input perturbation for linear model
 % Example: small rudder perturbation
 dXT      = 0;        % N
-ddelta_r = 0.02;     % rad
+ddelta_r = 0.001;    % rad
 ddelta_e = 0;        % rad
 
 dU = [dXT;
@@ -106,5 +106,5 @@ xlabel('Time (s)');
 sgtitle('Linear vs Nonlinear Velocity Perturbations');
 
 %% Save figures
-saveas(1, 'Linear_vs_Nonlinear_Position_Heading.png');
-saveas(2, 'Linear_vs_Nonlinear_Velocities.png');
+saveas(1, 'Linear_vs_Nonlinear_Position_Heading_Perturbations.png');
+saveas(2, 'Linear_vs_Nonlinear_Velocity_Perturbations.png');
