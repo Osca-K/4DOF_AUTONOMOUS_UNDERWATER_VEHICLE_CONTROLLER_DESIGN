@@ -1,49 +1,19 @@
-function [A, B, C, D, x0, U0] = auv_4dof_linear_model()
+function [A, B, C, D, x_trim, U_trim] = auv_4dof_linear_model()
 
+modelFile = 'AUV_4DOF_Linearised_Model.mat';
 
-%% Operating point
-x0 = [0;
-      0;
-     -20;
-      0;
-      2;
-     -0.03155;
-      0;
-      0.08];
+if ~isfile(modelFile)
+    error(['Missing %s. Run Calculate_Trim_and_Linearise_4DOF.m first to ', ...
+           'generate the numerical trim and linear model.'], modelFile);
+end
 
-%% Trim input
-U0 = [15.6036;
-      0.02422;
-     -0.23340];
+modelData = load(modelFile, 'A', 'B', 'C', 'D', 'x_trim', 'U_trim');
 
-%% State-space A matrix
-A = [0 0 0 0.03155 1       0        0       0;
-     0 0 0 2.00000 0       1        0       0;
-     0 0 0 0       0       0        1       0;
-     0 0 0 0       0       0        0       1;
-     0 0 0 0      -0.4563  0.1680   0      -0.0686;
-     0 0 0 0      -0.1185 -12.2279  0      -1.3156;
-     0 0 0 0       0.1363  0       -0.8665  0;
-     0 0 0 0       0.6330 -8.6168   0      -18.8402];
-
-%% State-space B matrix
-B = [0       0        0;
-     0       0        0;
-     0       0        0;
-     0       0        0;
-     0.0318  0        0;
-     0       0.5012   0;
-     0       0       -0.5842;
-     0      -2.8371   0];
-
-%% Output matrix
-
-C = [1 0 0 0 0 0 0 0;
-     0 1 0 0 0 0 0 0;
-     0 0 1 0 0 0 0 0;
-     0 0 0 1 0 0 0 0];
-
-%% Direct transmission matrix
-D = zeros(4,3);
+A = modelData.A;
+B = modelData.B;
+C = modelData.C;
+D = modelData.D;
+x_trim = modelData.x_trim;
+U_trim = modelData.U_trim;
 
 end
