@@ -1,7 +1,3 @@
-% Compare_Linear_Nonlinear_AutoLinearised.m
-% Active workflow step 6 of 7.
-% Compares linear and nonlinear perturbation responses using the
-% numerically calculated trim and auto-linearised 4DOF model.
 
 clear; clc; close all;
 
@@ -11,17 +7,19 @@ A = modelData.A;
 B = modelData.B;
 C = modelData.C;
 D = modelData.D;
+
+
 x_trim = modelData.x_trim;
 U_trim = modelData.U_trim;
 
 sys_lin = ss(A, B, C, D);
 
-%% Simulation settings
+%% Time for Simullation
 Tfinal = 20;
 t = linspace(0, Tfinal, 1000);
 
 %% Small input perturbation
-% Keep the perturbation very small so the linear model remains valid.
+%  perturbation very small so the linear model remains valid.
 dU = [0;
       0.0001;
       0];
@@ -42,13 +40,15 @@ dx_nonlin = x_nonlin_interp - x_trim.';
 
 %% Velocity perturbation comparison
 figure('Position', [100, 100, 1000, 700]);
+% Use Times New Roman for figure text and axes, and ensure titles are normal
+set(gcf, 'DefaultAxesFontName', 'Times New Roman', 'DefaultTextFontName', 'Times New Roman');
 
 subplot(4,1,1)
 plot(t, dx_lin(:,5), 'LineWidth', 1.3); hold on;
 plot(t, dx_nonlin(:,5), '--', 'LineWidth', 1.3);
 grid on;
 ylabel('\Delta u (m/s)');
-title('Velocity Perturbations: Linear vs Nonlinear', 'FontWeight', 'bold');
+title('Surge Velocity', 'FontWeight', 'normal', 'FontName', 'Times New Roman');
 legend('Linear', 'Nonlinear');
 
 subplot(4,1,2)
@@ -56,12 +56,16 @@ plot(t, dx_lin(:,6), 'LineWidth', 1.3); hold on;
 plot(t, dx_nonlin(:,6), '--', 'LineWidth', 1.3);
 grid on;
 ylabel('\Delta v (m/s)');
+title('Sway Velocity', 'FontWeight', 'normal', 'FontName', 'Times New Roman');
+ylabel('\Delta v (m/s)');
 legend('Linear', 'Nonlinear');
 
 subplot(4,1,3)
 plot(t, dx_lin(:,7), 'LineWidth', 1.3); hold on;
 plot(t, dx_nonlin(:,7), '--', 'LineWidth', 1.3);
 grid on;
+ylabel('\Delta w (m/s)');
+title('Heave Velocity', 'FontWeight', 'normal', 'FontName', 'Times New Roman');
 ylabel('\Delta w (m/s)');
 legend('Linear', 'Nonlinear');
 
@@ -71,49 +75,17 @@ plot(t, dx_nonlin(:,8), '--', 'LineWidth', 1.3);
 grid on;
 ylabel('\Delta r (rad/s)');
 xlabel('Time (s)');
+title('Yaw Rate', 'FontWeight', 'normal', 'FontName', 'Times New Roman');
+ylabel('\Delta r (rad/s)');
+xlabel('Time (s)');
 legend('Linear', 'Nonlinear');
 
-sgtitle('Linear vs Nonlinear Velocity Perturbations');
+sgtitle('Linear vs Nonlinear Velocity', 'FontWeight', 'normal', 'FontName', 'Times New Roman');
 
 if ~exist('Results','dir')
       mkdir('Results');
 end
 saveas(gcf, fullfile('Results','AutoLinearised_Velocity_Perturbations.png'));
-
-%% Position and heading perturbation comparison
-figure('Position', [100, 100, 1000, 700]);
-
-subplot(4,1,1)
-plot(t, dx_lin(:,1), 'LineWidth', 1.3); hold on;
-plot(t, dx_nonlin(:,1), '--', 'LineWidth', 1.3);
-grid on;
-ylabel('\Delta X (m)');
-title('Position and Heading Perturbations: Linear vs Nonlinear', 'FontWeight', 'bold');
-legend('Linear', 'Nonlinear');
-
-subplot(4,1,2)
-plot(t, dx_lin(:,2), 'LineWidth', 1.3); hold on;
-plot(t, dx_nonlin(:,2), '--', 'LineWidth', 1.3);
-grid on;
-ylabel('\Delta Y (m)');
-legend('Linear', 'Nonlinear');
-
-subplot(4,1,3)
-plot(t, dx_lin(:,3), 'LineWidth', 1.3); hold on;
-plot(t, dx_nonlin(:,3), '--', 'LineWidth', 1.3);
-grid on;
-ylabel('\Delta Z (m)');
-legend('Linear', 'Nonlinear');
-
-subplot(4,1,4)
-plot(t, dx_lin(:,4), 'LineWidth', 1.3); hold on;
-plot(t, dx_nonlin(:,4), '--', 'LineWidth', 1.3);
-grid on;
-ylabel('\Delta\psi (rad)');
-xlabel('Time (s)');
-legend('Linear', 'Nonlinear');
-
-sgtitle('Linear vs Nonlinear Position and Heading Perturbations');
 
 if ~exist('Results','dir')
       mkdir('Results');
