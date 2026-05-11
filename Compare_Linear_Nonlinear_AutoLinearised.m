@@ -1,3 +1,5 @@
+% Compare_Linear_Nonlinear_AutoLinearised.m
+% Compare the linearized and nonlinear 4DOF AUV responses for a small perturbation.
 
 clear; clc; close all;
 

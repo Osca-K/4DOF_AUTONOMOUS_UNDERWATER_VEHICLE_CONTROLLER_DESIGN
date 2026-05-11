@@ -1,3 +1,6 @@
+% RootsFind.m
+% Compute poles and zeros for the selected linearized 4DOF AUV transfer functions.
+
 clear; clc; close all;
 
 %% Load 4DOF linear model

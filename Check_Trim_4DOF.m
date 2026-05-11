@@ -1,7 +1,5 @@
 % Check_Trim_4DOF.m
-% Active workflow step 5 of 7.
-% Verifies the numerical trim by simulating the nonlinear 4DOF REMUS-based
-% AUV model with zero input perturbation and plotting velocity perturbations.
+%ChatGPT was used to assist with this code to check the trim point by simulating the nonlinear model with the trim input and verifying that velocity perturbations remain near zero.
 
 clear; clc; close all;
 

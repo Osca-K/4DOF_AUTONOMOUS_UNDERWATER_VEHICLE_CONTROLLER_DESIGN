@@ -1,3 +1,7 @@
+% Blode_Plot.m
+% Plot the Bode responses for the selected 4DOF AUV transfer functions.
+
+
 clear; clc; close all;
 
 %% Load 4DOF linear model

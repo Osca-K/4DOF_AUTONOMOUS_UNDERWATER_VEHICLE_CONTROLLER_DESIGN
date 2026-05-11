@@ -1,4 +1,7 @@
+% ChatGPT was also used to assint with this code to plot 3D Trajectory of the UnconrolledAUV
+
 clear; clc; close all;
+
 
 %% Create Results folder if it does not exist
 if ~exist('Results','dir')
@@ -71,7 +74,7 @@ view(40, 20);
 
 saveas(gcf, fullfile('Results', 'Uncontrolled_3D_Trajectory.png'));
 
-%% Optional top-view plot
+t
 figure;
 plot(X, Y, 'r-', 'LineWidth', 2); hold on;
 plot(X_des, Y_des, 'k--', 'LineWidth', 2);

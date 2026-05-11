@@ -1,3 +1,6 @@
+%Roots of Transfer Functions
+% Load the linearized 4DOF AUV model and display selected transfer functions.
+
 clear; clc; close all;
 
 %% Load 4DOF linear model

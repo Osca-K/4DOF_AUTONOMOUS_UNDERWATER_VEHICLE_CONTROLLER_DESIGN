@@ -1,9 +1,12 @@
+% Step_Input_Response.m
+% Plot the step responses for the selected 4DOF AUV transfer functions.
+
 clear; clc; close all;
 
-%% Load 4DOF linear model
+%% Load the linear model
 [A, B, C, D, x_trim, U_trim] = auv_4dof_linear_model();
 
-%% State-space system
+%% State-space model
 sys = ss(A, B, C, D);
 
 %% Transfer functions
@@ -14,7 +17,7 @@ TF2 = TF(2,2);   % Y(s) / delta_r(s)
 TF3 = TF(3,3);   % Z(s) / delta_e(s)
 TF4 = TF(4,2);   % psi(s) / delta_r(s)
 
-%% Create Results folder
+%% Create the Results folder
 if ~exist('Results','dir')
     mkdir('Results');
 end
@@ -22,7 +25,7 @@ end
 %% Time vector
 t = 0:0.01:20;
 
-%% Step Response 1: Surge position / thrust
+%% Surge position / thrust
 figure
 step(TF1, t)
 grid on
@@ -33,7 +36,7 @@ ylabel('\Delta X (m)', 'FontName', 'Times New Roman')
 set(findall(gcf,'-property','FontName'), 'FontName', 'Times New Roman')
 saveas(gcf, fullfile('Results','Step_Surge_X_XT.png'))
 
-%% Step Response 2: Sway position / rudder
+%% Sway position / rudder
 figure
 step(TF2, t)
 grid on
@@ -44,7 +47,7 @@ ylabel('\Delta Y (m)', 'FontName', 'Times New Roman')
 set(findall(gcf,'-property','FontName'), 'FontName', 'Times New Roman')
 saveas(gcf, fullfile('Results','Step_Sway_Y_delta_r.png'))
 
-%% Step Response 3: Heave/depth position / elevator
+%% Heave position / elevator
 figure
 step(TF3, t)
 grid on
@@ -55,7 +58,7 @@ ylabel('\Delta Z (m)', 'FontName', 'Times New Roman')
 set(findall(gcf,'-property','FontName'), 'FontName', 'Times New Roman')
 saveas(gcf, fullfile('Results','Step_Heave_Z_delta_e.png'))
 
-%% Step Response 4: Yaw heading / rudder
+%% Yaw heading / rudder
 figure
 step(TF4, t)
 grid on

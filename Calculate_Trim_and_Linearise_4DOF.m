@@ -1,4 +1,13 @@
 % Calculate_Trim_and_Linearise_4DOF.m
+% Compute the trim condition and numerical linear model for the 4DOF AUV.
+%% Trim conditions
+%% Unknown trim variables
+%% Solve the trim numerically
+%% Check the trim residual using the nonlinear model
+%% Print the trim solution
+%% Finite-difference linearisation
+%% Output matrices
+% Calculate_Trim_and_Linearise_4DOF.m
 % Active workflow step 2 of 7.
 % Numerically computes the trim point and finite-difference linearisation
 % directly from the nonlinear 4DOF REMUS-based AUV model.
